@@ -27,6 +27,29 @@ const loadData = (url, page = 1) => {
     })
 }
 
+
+
+const loadCharacterInfo = (url, id) => {
+    let urlCharacter = `${url}${id}`;
+    console.log(urlCharacter);
+    fetch(urlCharacter)
+        .then(respuesta => respuesta.json())
+        .then(personaje => {
+            //Toodo: Implementar Modal con info del personaje
+            alert(personaje.name);
+        })
+}
+
+const showModal = (e) => {
+    e.preventDefault();
+    if(e.target.classList.contains('btn')){
+        let page = e.target.getAttribute('data-id');
+        loadCharacterInfo(urlBase, page);
+    }
+}
+
+document.querySelector('#respuesta').addEventListener('click', showModal);
+
 const navegacion = (e) => {
     e.preventDefault();
     if(e.target.classList.contains('btn')){
@@ -54,11 +77,11 @@ const creaCard = (personaje) => {
     card.style = 'float: left;';
     const html = `
     <div class="card m-2" style="width: 18rem; ">
-        <img src="${personaje.image}" class="card-img-top" alt="...">
+        <img loading="lazy" src="${personaje.image}" class="card-img-top" alt="...">
         <div class="card-body">
         <h5 class="card-title">${personaje.name}</h5>
         <p class="card-text">${personaje.status}</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <a href="#" class="btn btn-primary btn-block" data-id="${personaje.id}">Go somewhere</a>
         </div>
     </div>`;
     card.innerHTML = html;
@@ -80,4 +103,4 @@ const creaCard = (personaje) => {
     btnNext.className = 'btn btn-success btn-lg mx-3';
     btnNext.innerText = 'Siguiente';
     contenedorButtons.appendChild(btnNext);
-}*/
+}*/querySelector('#prev').setAttribute('data-id', Number(page) - 1)
